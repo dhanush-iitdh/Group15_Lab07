@@ -37,8 +37,25 @@ int main(void) {
     UART_Init();                        /* Initialize UART */
     GPIO_Init();                        /* Initialize GPIO for switches and LEDs */
 
-    while (1) {
+while (1) {
+        /* Check for SW1 press */
+        if ((GPIO_PORTF_DATA_R & 0x10) == 0x00) {  /* SW1 is pressed */
+            UART_Transmit(0xF0);  /* Transmit 0xF0 over UART */
+        }
+        /* Check for SW2 press */
+        if ((GPIO_PORTF_DATA_R & 0x01) == 0x00) {  /* SW2 is pressed */
+            UART_Transmit(0xAA);  /* Transmit 0xAA over UART */
+        }
 
+        /* Listen for incoming data */
+        uint8_t received_data = UART_Receive();
+        if (received_data == 0xAA) {
+            GPIO_PORTF_DATA_R = 0x08;  /* Turn on GREEN LED */
+        } else if (received_data == 0xF0) {
+            GPIO_PORTF_DATA_R = 0x04;  /* Turn on BLUE LED */
+        } else {
+            GPIO_PORTF_DATA_R = 0x02;  /* Turn on RED LED (Error) */
+        }
+    }
 }
-
 }
