@@ -58,3 +58,8 @@ int main(void) {
             }
         }
     }
+/* Function to transmit data over UART */
+void UART_Transmit(uint8_t data) {
+    while ((UART0_FR_R & 0x20) != 0); /* Wait until TXFF is clear */
+    UART0_DR_R = data;                /* Transmit the data */
+}
