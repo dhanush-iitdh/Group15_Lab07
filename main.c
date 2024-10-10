@@ -13,6 +13,11 @@ void GPIO_Init(void) {
     GPIO_PORTF_PUR_R = 0x11;            /* Enable pull-up resistors for PF0, PF4 (SW1, SW2) */
 }
 
+void UART_Init(void);
+void GPIO_Init(void);
+void UART_Transmit(uint8_t data);
+uint8_t UART_Receive(void);
+
 /* Function to initialize UART0 with baud rate 9600, 8-bit data, odd parity */
 
 void UART_Init(void) {
