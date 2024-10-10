@@ -68,3 +68,8 @@ void UART_Transmit(uint8_t data) {
     while ((UART0_FR_R & 0x20) != 0); /* Wait until TXFF is clear */
     UART0_DR_R = data;                /* Transmit the data */
 }
+/* Function to receive data over UART */
+uint8_t UART_Receive(void) {
+    while ((UART0_FR_R & 0x10) != 0); /* Wait until RXFE is clear */
+    return (uint8_t)(UART0_DR_R & 0xFF); /* Read and return the received data */
+}
