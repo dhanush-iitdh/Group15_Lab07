@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "tm4c123gh6pm.h"
 
-/* Function declarations */
+
 void UART_Init(void);
 void GPIO_Init(void);
 void UART_Transmit(uint8_t data);
@@ -10,7 +10,7 @@ uint8_t UART_Receive(void);
 void GPIOF_Handler(void);       /* GPIO Port F interrupt handler */
 void UART0_Handler(void);       /* UART0 interrupt handler */
 
-/* Function to initialize GPIO for SW1, SW2, and LEDs */
+
 void GPIO_Init(void) {
     SYSCTL_RCGCGPIO_R |= 0x20;          /* Enable clock for PORTF */
     GPIO_PORTF_LOCK_R = 0x4C4F434B;     /* Unlock PORTF */
